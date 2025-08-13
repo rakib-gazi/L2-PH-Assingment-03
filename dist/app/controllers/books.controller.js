@@ -8,13 +8,22 @@ const express_1 = __importDefault(require("express"));
 const books_model_1 = require("../models/books.model");
 exports.booksRoutes = express_1.default.Router();
 exports.booksRoutes.post("/", async (req, res) => {
-    const body = req.body;
-    const book = await books_model_1.Book.create(body);
-    res.status(201).json({
-        success: true,
-        message: "Book created successfully",
-        data: book,
-    });
+    try {
+        const body = req.body;
+        const book = await books_model_1.Book.create(body);
+        res.status(201).json({
+            success: true,
+            message: "Book created successfully",
+            data: book,
+        });
+    }
+    catch (error) {
+        res.status(400).json({
+            message: "Validation failed",
+            success: false,
+            error: error,
+        });
+    }
 });
 exports.booksRoutes.get("/", async (req, res) => {
     const books = await books_model_1.Book.find();
