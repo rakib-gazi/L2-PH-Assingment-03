@@ -7,3 +7,10 @@ export interface IBook {
     copies: number,
     available:boolean,
 }
+
+export interface BookQuery {
+  filter?: string;
+  sortBy?: string;
+  sort?: "asc" | "desc";
+  limit?: string;
+}

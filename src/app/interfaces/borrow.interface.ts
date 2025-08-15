@@ -9,3 +9,4 @@ export interface IBorrow {
 export interface borrowStaticMethod extends Model<IBorrow> {
     validateBorrowBook (requestedQuantity: number, bookId: string): Promise<boolean>
 }
+export interface borrowStaticMethod 
