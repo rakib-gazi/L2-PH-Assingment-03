@@ -2,17 +2,15 @@ import express, { Request, Response } from "express";
 import { Borrow } from "../models/borrow.model";
  export const borrowRoutes = express.Router();
 
+
 borrowRoutes.post("/", async (req: Request, res: Response) => {
   try {
     const body = req.body;
+    const borrowedBook = await Borrow.create(body);
     // custom static method
-    const result = await Borrow.validateBorrowBook(
-      body.quantity,
+    await Borrow.validateBorrowBook(
       body.book
     );
-    console.log("before create", result);
-    const borrowedBook = await Borrow.create(body);
-    console.log("after create", borrowedBook);
     res.status(201).json({
       success: true,
       message: "Book borrowed successfully",
@@ -28,7 +26,6 @@ borrowRoutes.post("/", async (req: Request, res: Response) => {
     });
   }
 });
-
 borrowRoutes.get("/", async (req: Request, res: Response) => {
   try {
     const summary = await Borrow.aggregate([

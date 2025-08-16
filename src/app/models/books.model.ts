@@ -59,4 +59,14 @@ const booksSchema = new Schema<IBook>(
   }
 );
 
+
+booksSchema.post("findOneAndUpdate", async function (updatedBook) {
+  if (!updatedBook) return; 
+  if (updatedBook.copies > 0 && !updatedBook.available) {
+     updatedBook.available = true; 
+    await updatedBook.save(); 
+  }
+});
+
+
 export const Book = model<IBook>("Book", booksSchema);

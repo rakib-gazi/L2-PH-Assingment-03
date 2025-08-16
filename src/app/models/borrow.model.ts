@@ -33,35 +33,41 @@ const borrowSchema = new Schema<IBorrow, borrowStaticMethod>(
 );
 
 borrowSchema.pre("save", async function () {
-  const book = await Book.findById(this.book, { copies: 1 });
-  if (!book) {
-    throw new Error("Book not found");
+  if (typeof this.quantity === "number") {
+    const book = await Book.findById(this.book, { copies: 1 });
+    if (!book) {
+      throw new Error("Book not found");
+    }
+
+    if (book.copies >= this.quantity) {
+      const updatedField = {
+        copies: book.copies - this.quantity,
+      };
+      await Book.findByIdAndUpdate(this.book, updatedField, { new: true });
+    } else {
+      throw new Error("Not enough copies available");
+    }
   }
 });
+
+
 borrowSchema.static(
   "validateBorrowBook",
   async function (
     this: Model<IBorrow>,
-    requestedQuantity: number,
     bookId: string
-  ): Promise<boolean> {
+  ) {
     const book = await Book.findById(bookId, { copies: 1 });
     if (!book) {
       return false;
     }
-
-    if (book.copies >= requestedQuantity) {
-      throw new Error("Not enough copies available");
-    }
-    const deductCopies = book.copies - requestedQuantity;
     const updatedFields = {
-      copies: deductCopies,
-      available: deductCopies > 0,
+      available: book.copies === 0? false : true,
     };
     await Book.findByIdAndUpdate(bookId, updatedFields, { new: true });
-    return true;
   }
 );
+
 
 export const Borrow = model<IBorrow, borrowStaticMethod>(
   "Borrow",
