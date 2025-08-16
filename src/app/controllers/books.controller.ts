@@ -13,13 +13,30 @@ booksRoutes.post("/", async (req: Request, res: Response) => {
       data: book,
     });
   } catch (error: any) {
-    res.status(400).json({
-      message: "Validation failed",
-      success: false,
-      error: error,
-    });
+  const keyPattern = error.cause?.keyPattern;
+  const keyValue = error.cause?.keyValue;
+  const errorObject = {
+    name: "DuplicationError",
+    errors:{
+      isbn : {
+        message: "The book's Isbn Number is already Exists",
+        name: "DuplicationError",
+        properties: {
+          message: "The book's Isbn Number is already Exists",
+          keyPattern,
+          keyValue
+        }
+      }
+    }
+  }
+  return res.status(400).json({
+    message:  "Validation failed",
+    success: false,
+    error: error.errors ? error: errorObject,
+  });
   }
 });
+
 
 booksRoutes.get("/", async (req: Request, res: Response) => {
   try {
@@ -52,6 +69,8 @@ booksRoutes.get("/", async (req: Request, res: Response) => {
   }
 });
 
+
+
 booksRoutes.get("/:bookId", async (req: Request, res: Response) => {
   try {
     const bookId = req.params.bookId;
@@ -76,11 +95,12 @@ booksRoutes.get("/:bookId", async (req: Request, res: Response) => {
     });
   }
 });
+
+
 booksRoutes.put("/:bookId", async (req: Request, res: Response) => {
   try {
     const bookId = req.params.bookId;
     const updatedBody = req.body;
-    console.log(updatedBody);
     const book = await Book.findByIdAndUpdate(bookId, updatedBody, {
       new: true,
     });
@@ -104,6 +124,8 @@ booksRoutes.put("/:bookId", async (req: Request, res: Response) => {
     });
   }
 });
+
+
 booksRoutes.delete("/:bookId", async (req: Request, res: Response) => {
   try {
     const bookId = req.params.bookId;

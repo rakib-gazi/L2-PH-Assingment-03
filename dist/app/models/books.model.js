@@ -45,7 +45,7 @@ const booksSchema = new mongoose_1.Schema({
         min: [1, "The number of copies must be is grater than 0"],
         validate: {
             validator: Number.isInteger,
-            message: "Copies must be an integer",
+            message: "Copies must be an positive number",
         },
     },
     available: {
@@ -55,5 +55,14 @@ const booksSchema = new mongoose_1.Schema({
 }, {
     versionKey: false,
     timestamps: true,
+});
+// Used Post hook mongoose middleware here
+booksSchema.post("findOneAndUpdate", async function (updatedBook) {
+    if (!updatedBook)
+        return;
+    if (updatedBook.copies > 0 && !updatedBook.available) {
+        updatedBook.available = true;
+        await updatedBook.save();
+    }
 });
 exports.Book = (0, mongoose_1.model)("Book", booksSchema);

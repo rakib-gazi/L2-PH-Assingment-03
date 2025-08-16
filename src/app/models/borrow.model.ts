@@ -32,6 +32,9 @@ const borrowSchema = new Schema<IBorrow, borrowStaticMethod>(
   }
 );
 
+
+
+// used Pre hook mongoose middleware here
 borrowSchema.pre("save", async function () {
   if (typeof this.quantity === "number") {
     const book = await Book.findById(this.book, { copies: 1 });
@@ -51,6 +54,8 @@ borrowSchema.pre("save", async function () {
 });
 
 
+
+// used mongoose static method here 
 borrowSchema.static(
   "validateBorrowBook",
   async function (
@@ -67,6 +72,7 @@ borrowSchema.static(
     await Book.findByIdAndUpdate(bookId, updatedFields, { new: true });
   }
 );
+
 
 
 export const Borrow = model<IBorrow, borrowStaticMethod>(

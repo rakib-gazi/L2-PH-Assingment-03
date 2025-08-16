@@ -60,6 +60,8 @@ const booksSchema = new Schema<IBook>(
 );
 
 
+
+// Used Post hook mongoose middleware here
 booksSchema.post("findOneAndUpdate", async function (updatedBook) {
   if (!updatedBook) return; 
   if (updatedBook.copies > 0 && !updatedBook.available) {
@@ -67,6 +69,8 @@ booksSchema.post("findOneAndUpdate", async function (updatedBook) {
     await updatedBook.save(); 
   }
 });
+
+
 
 
 export const Book = model<IBook>("Book", booksSchema);
