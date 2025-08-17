@@ -367,6 +367,7 @@ Custom Duplication error  response :
 │   │       └── borrow.controller.ts
 │   ├── app.ts   
 │   └── server.ts
+├── .env
 ├── .gitignore
 ├── package-lock.json
 ├── package.json
