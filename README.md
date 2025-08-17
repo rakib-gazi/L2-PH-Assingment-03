@@ -84,7 +84,7 @@ npm run dev
 The project uses environment variables for configuration & secret data..  
 Create a `.env` file in the root directory and set the following variables:
 
-| Variable   | Description                   | Example Value             |
+| Variable   | Description                   | Example                   |
 |------------|-------------------------------|---------------------------|
 | PORT       | Port number for the server    | 5000                      |
 | DB_USER    | MongoDB database user         | ${process.env.DB_USER}    |
@@ -96,8 +96,9 @@ Create a `.env` file in the root directory and set the following variables:
 
 ### 1.Create Book
 
-**POST** `/api/books`  
+**POST** ```/api/books```  
 Creates a new book with validation.
+
 **Request**
 ```
 {
@@ -130,10 +131,13 @@ Creates a new book with validation.
 }
 ```
 2. ### Get All Books
-**GET** ```/api/books``
+**GET** ```/api/books```
+
 Get all books wih supports filtering, and sorting.
+
 **Query:** 
 ```/api/books?filter=FANTASY&sortBy=createdAt&sort=desc&limit=5```
+
 **Query Parameters:**
 - **filter:** Filter by genre
 - **sortBy:** createdAT
@@ -166,6 +170,7 @@ Get all books wih supports filtering, and sorting.
 
 **GET** ```/api/books/:bookId```
 Get single book by ID.
+
 **Response**
 ```
 {
@@ -190,6 +195,7 @@ Get single book by ID.
 
 **PUT** ```/api/books/:bookId```
 Update book info with validation & business logic.
+
 **Request**
 ```
 {
