@@ -12,6 +12,8 @@ This Backend allows managing books (Create book, Get all books with filter,sort 
 - [API Endpoints](#api-endpoints)
 - [Error Handling](#error-handling)
 - [Project Structure](#project-structure)
+- [Live Demo](#live-demo)
+- [BookGrid Backend summary](#bookgrid-backend-summary)
 
 ---
 ## Features
@@ -374,6 +376,8 @@ Custom Duplication error  response :
 ├── README.md
 └── tsconfig.json
 ```
+## Live Demo
+[BookGrid](https://l2-ph-assingment-03.vercel.app/)
 ---
 ## BookGrid Backend summary
 
