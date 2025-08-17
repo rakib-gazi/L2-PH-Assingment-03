@@ -77,15 +77,17 @@ await mongoose.connect('mongodb+srv://<username>:<password>@cluster0.mongodb.net
 npm run dev
 ```
 ---
-## 🌍 Environment Variables
+## Environment Variables
 
-The project uses environment variables for configuration.  
+The project uses environment variables for configuration & secret data..  
 Create a `.env` file in the root directory and set the following variables:
 
-| Variable   | Description                   | Example Value                                           |
-|-----------|--------------------------------|---------------------------------------------------------|
-| PORT      | Port number for the server     | 5000                                                    |
-| MONGO_URI | MongoDB connection string      | mongodb+srv://user:pass@cluster0.mongodb.net/LibraryDB  |
+| Variable   | Description                   | Example Value             |
+|------------|-------------------------------|---------------------------|
+| PORT       | Port number for the server    | 5000                      |
+| DB_USER    | MongoDB database user         | ${process.env.DB_USER}    |
+| DB_PASSWORD| MongoDB database password     | ${process.env.DB_PASSWORD}|
+| DB_NAME    | MongoDB database name         | ${process.env.DB_NAME}    |
 
 ---
 ##  API Endpoints
