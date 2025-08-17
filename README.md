@@ -2,7 +2,7 @@
 ---
 **BookGrid** is a Library Management System built with Express js, TypeScript js, and MongoDB using Mongoose.
 This Backend allows managing books (Create book, Get all books with filter,sort & limit , Get single book, update & delete book), borrowing books with business rules (availability, copies, due dates), and generating borrow summaries.
----
+
 # Table of Contents
 
 - [Features](#features)
@@ -379,7 +379,6 @@ Custom Duplication error  response :
 -  Mongoose middleware (pre/post).
 -  Static methods.
 -  Aggregation pipelines.
--  Professional documentation (this README).
 ---
 # The End
 ---
